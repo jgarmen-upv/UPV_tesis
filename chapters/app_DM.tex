@@ -1,0 +1,74 @@
+\chapter{Brief mathematical demonstrations}
+
+\clearpage
+\section{Differential equation solution for the number of WIMPs in the Sun}
+\label{app:diff}
+
+Take this expression:
+
+\begin{equation}
+	\frac{\mathrm{d}N}{\mathrm{d}t} = C_\odot - A_\odot \cdot N^2.
+\end{equation}
+
+Splitting the terms which depend on $N$ and $t$, we get:
+
+\begin{equation}
+	\frac{\mathrm{d}N}{C_\odot - A_\odot \cdot N^2} = \mathrm{d}t.
+\end{equation}
+
+Now, integrating in both sides, from $t_0 = 0$, when $N(t_0) = 0$, to the age of the Solar System $t_\odot$:
+
+\begin{equation}
+	\label{eq:int}
+	\int_0^N \frac{1}{C_\odot - A_\odot \cdot N^2} \,\mathrm{d}N = \int_{0}^{t_\odot} \mathrm{d}t.
+\end{equation}
+
+Focusing on the left integral, we can write it as:
+
+\begin{equation}
+	\int_0^N \frac{1/C_\odot}{1 - A_\odot/C_\odot \cdot N^2} \, \mathrm{d}N .
+\end{equation}
+
+We now can make a variable change, such that:
+
+\begin{equation}
+	\left.
+	\begin{aligned}
+		N &= \sqrt{C_\odot/A_\odot} \cdot \tanh(x)\\
+		x &= \textrm{arc}\tanh\left(\sqrt{A_\odot/C_\odot} \cdot N\right)  
+	\end{aligned} \right\}
+	\Longrightarrow \mathrm{d}N = \sqrt{C_\odot/A_\odot} \cdot \left(1-\tanh^2(x)\right)\, \mathrm{d}x.
+\end{equation}
+
+Thus, we can re-write and solve the integral:
+
+\begin{equation}
+	\begin{aligned}
+	\int_0^N \frac{1/C_\odot}{1 - A_\odot/C_\odot \cdot N^2} \, \mathrm{d}N =&
+	\int_0^x \frac{1/C_\odot \cdot  \sqrt{C_\odot/A_\odot}  \cdot  \left(1-\tanh^2(x)\right)}{1-A_\odot/C_\odot  \cdot \left( \sqrt{C_\odot/A_\odot} \cdot \tanh(x) \right)^2} \, \mathrm{d}x =  \\
+	=& \int_0^x \frac{1/\sqrt{A_\odot C_\odot}  \cdot  \left(1-\tanh^2(x)\right)}{1- \tanh^2(x)} \, \mathrm{d}x = \\
+	=& \int_0^x 1/\sqrt{A_\odot C_\odot} \, \mathrm{d}x = \\
+	=& \,x/\sqrt{A_\odot C_\odot}.
+	\end{aligned}
+\end{equation}
+
+Undoing the variable change and introducing the result in equation \ref{eq:int}:
+
+\begin{equation}
+	\begin{gathered}
+		\textrm{arc}\tanh\left(\sqrt{A_\odot/C_\odot} \cdot N\right) /  \sqrt{A_\odot C_\odot} = t_\odot \Longrightarrow \\
+		\Longrightarrow \textrm{arc}\tanh\left(\sqrt{A_\odot/C_\odot} \cdot N\right) = \sqrt{A_\odot C_\odot} \cdot t_\odot \Longrightarrow \\
+		\Longrightarrow \boxed{ N = \sqrt{C_\odot/A_\odot} \cdot \tanh\left(\sqrt{A_\odot C_\odot} \cdot t_\odot \right)}
+	\end{gathered}
+\end{equation}
+
+With this result and using that $A_\odot N^2$ is twice the annihilation rate $\Gamma_\odot$ by definition, we can conclude that:
+
+\begin{equation}
+	\begin{gathered}
+		\Gamma_\odot = \frac{1}{2}A_\odot N^2 = \frac{1}{2}A_\odot \cdot \frac{C_\odot}{A_\odot} \cdot \tanh^2\left(\sqrt{A_\odot C_\odot} \cdot t_\odot \right) \Longrightarrow \\
+		\Longrightarrow \boxed{\Gamma_\odot = \frac{1}{2} C_\odot \cdot \tanh^2\left(\sqrt{A_\odot C_\odot} \cdot t_\odot \right)},
+	\end{gathered}
+\end{equation}
+
+as we wanted to demonstrate.

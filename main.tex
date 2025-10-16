@@ -1,0 +1,248 @@
+% ---------------------------------------------------------------------
+%                      DOCUMENTO DE EJEMPLO
+%                    QUE UTILIZA LA PLANTILLA
+%                    DE LA EDITORIAL DE LA UPV
+%                  ADAPTADA A TESIS DOCTORALES POR 
+%                       JUAN GARCIA MENDEZ
+% ---------------------------------------------------------------------
+
+\documentclass[nocrop, rm, english]{tesisUPV}
+
+% Opciones de la clase 'tesisUPV'
+%
+% rm          - Tipo de letra roman
+% sf          - Tipo de letra sans-serif
+% crop        - Marcas de corte (cruz) 17x24 cm (+3 mm por los cuatro lados) centrada en una A4 
+% nocrop      - Sin marcas de corte, respeta el tamaño 17x24 cm 
+% nomathskip  - No se modifican las distancias de las ecuaciones 
+%
+% castellano  - La publicación está escrita en castellano
+% valencia    - La publicació està escrita en valencià
+% english     - La publicación está escrita en inglés
+
+% Opcoines por defecto: rm, nocrop, english
+
+% ---------------------------------------------------------------------
+% Configuraciones presonalizadas 
+
+\input{./configuraciones/preambulo}
+\input{./configuraciones/preambulo_tcolorbox}
+\input{./configuraciones/preambulo_listings_LaTeX} % Para incluir código LaTeX
+%\input{./configuraciones/preambulo_listings} % Ejemplos de configuración para incluir código C, o Matlab
+
+% ---------------------------------------------------------------------
+% Ajustar para maquetar cuando haya figuras y tablas muy grandes
+
+% Make LaTeX more permissive about mixing floats (tables and images) with text
+\renewcommand\topfraction{0.97}         % max fraction of page at top that can be floats
+\renewcommand\bottomfraction{0.97}      % ... at bottom
+\renewcommand\textfraction{0.03}        % min fraction that must be text (so 3% text is enough)
+\renewcommand\floatpagefraction{0.8}   % min fraction for a float-only page (harder to trigger)
+
+% Allow more floats per page (default is pretty low)
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{10}
+\setcounter{dbltopnumber}{5}
+
+% ---------------------------------------------------------------------
+% Archivos con las referencias bibliográficas. Se puede poner más de uno
+\bibliography{bib}
+
+% ---------------------------------------------------------------------
+% Maquetado de las referencias (Hay mas en "preambulo.tex")
+
+% Modificar como se ven las fechas: MM/DD/YYYY ----> DD/MM/YYYY
+\DeclareFieldFormat{urldate}{%
+  (visited on \thefield{urlday}/%
+  \thefield{urlmonth}/%
+  \thefield{urlyear}\isdot)}
+
+% ---------------------------------------------------------------------
+% Las carpetas para los gráficos
+
+\graphicspath{
+	{../figuras/}
+	{../logos/}
+	{./figuras/}
+	{./logos/}
+}
+
+% ---------------------------------------------------------------------
+% Título, autores y fecha
+
+% Se puede modificar para poner titulo y subtitulo de manera mas limpia
+\title{\textsc{Plantilla de \LaTeX}\\[0.3em]\Large Para tesis doctorales reshulonas}
+
+% Formato recomendado
+\author{
+	\parbox{\textwidth}{\centering%
+		\begin{tabular}{l@{\hspace{.75em}}l}
+			Author: 		& Juan García Méndez\\[3ex]
+			Supervisors: 	& Dr. Jefe\\[.5ex]
+						    & Dr. Jefazo
+		\end{tabular}
+    } 
+}
+
+% Ciudad, pais, mes y año. Creo que el mes y el año es obligatorio. Ver directrices UPV
+\date{Valencia, Spain\\October 2025}
+
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% BEGIN DOCUMENT
+
+\begin{document}
+
+\input{./configuraciones/referencias_cruzadas}
+
+
+% -------------------------------------------------------
+% COVER
+% Opcional. Incluye una pagina en blanco despues del cover automaticamente.
+% La portada "cover.pdf" debe estar en la misma carpeta que este archivo
+%\includepdf[pages=-]{cover.pdf}
+
+% -------------------------------------------------------
+% Starting front-matter
+
+\frontmatter
+
+% -------------------------------------------------------
+% Página de título
+
+\maketitle
+
+% -------------------------------------------------------
+% Agradecimientos
+
+\cleardoublepage
+\thispagestyle{empty}
+
+\vspace*{\fill}
+\begin{flushright}
+\itshape
+To me and myself.\\
+Say thanks to someone else,\\
+don't be a bitch.\\[1.5em]
+A mí mismo.\\
+Da las gracias a alguien más,\\
+no seas perro.
+\end{flushright}
+\vspace*{\fill}
+
+% -------------------------------------------------------
+% Resumenes en varios idiomas
+
+\input{chapters/summaries}
+
+% -------------------------------------------------------
+% Lista de acrónimos
+%\cleardoublepage
+\phantomsection
+\glsaddall
+\printglossary[
+  type=\acronymtype,
+  title={Acronyms},      % or {Acrónimos}
+  toctitle={Acronyms},   % how it appears in the ToC
+  style=longbold,        % nice 2-column-ish description layout; try 'list' or 'long' if you prefer
+  nonumberlist           % suppress page-number list per entry (cleaner)
+]
+
+
+\cleardoublepage
+
+% -------------------------------------------------------
+% Índice: tabla de contenidos
+% Lista de figuras y lista de tablas
+
+% Tabla de contenidos
+\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+        
+% Lista de figuras
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoffigures
+
+% Lista de tablas
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listtablename}
+%\listoftables
+    
+
+% -------------------------------------------------------
+% Numeración de páginas números arábicos
+% Primer capítulo en página 1
+
+\mainmatter
+
+% -------------------------------------------------------
+% -------------------------------------------------------
+% -------------------------------------------------------
+% Capítulos de la publicación
+
+% -------------------------------------------------------
+\input{chapters/0_intro}
+
+% -------------------------------------------------------
+\part{High-energy neutrino astronomy and the ANTARES telescope}
+\label{part:1}
+
+\input{chapters/1_neutrino_astronomy}
+
+% -------------------------------------------------------
+\part{New reconstruction method for ANTARES single-line events based on Machine Learning: \emph{N}-fit}
+\label{part:2}
+
+\input{chapters/2_machine}
+
+% -------------------------------------------------------
+% For the marker to be outside last chapter when using bookmarks in an electronic PDF
+\bookmarksetup{startatroot}
+\input{chapters/3_conclusion}
+
+
+% -------------------------------------------------------
+% -------------------------------------------------------
+% -------------------------------------------------------
+% Apéndices de la publicación
+\part*{Appendix}
+\appendix
+
+\input{chapters/app_DM}
+
+% -------------------------------------------------------
+% -------------------------------------------------------
+% -------------------------------------------------------
+% Bibliografía
+
+\bibitemsep = 3ex
+\bibhang = 2em
+\bookmarksetup{startatroot}
+% To avoid over-flux. It causes under-flux, but it is preferable. Start with it commented and play with the number
+\emergencystretch=1.5em
+\printbibliography[heading=bibintoc,title=\bibname]
+
+% -------------------------------------------------------
+% Índice alfabético
+
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\indexname}
+%\printindex
+
+% -------------------------------------------------------
+% Fin del documento
+
+\end{document}
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------

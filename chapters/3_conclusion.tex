@@ -1,0 +1,45 @@
+
+\phantomsection
+\chapter*{Conclusions}
+\markboth{Conclusions}{Conclusions}
+\addcontentsline{toc}{chapter}{Conclusions}
+\label{chap:conclusions}
+
+This thesis has addressed three complementary aspects of modern astroparticle physics: the use of neutrinos as cosmic messengers, the application of machine learning to enhance detector performance, and the search for dark matter through neutrino observations of the Sun. The results obtained provide both methodological advances and physics insights, while also pointing to promising directions for future work.
+
+\phantomsection
+\section*{Summary of Contributions}
+\addcontentsline{toc}{section}{Summary of Contributions}
+
+In the first part of this manuscript, the foundations of neutrino astronomy and the ANTARES telescope were introduced. These chapters set the framework for the subsequent developments, emphasizing both the potential and the challenges of neutrino telescopes as tools for fundamental physics.
+
+The second part of this thesis was dedicated to the development of a new machine learning--based reconstruction algorithm, \textbf{\textit{N}-fit}, specifically designed to improve the treatment of single-line events in ANTARES. Using deep convolutional architectures, mixture density outputs, and transfer learning, $N$-fit achieves a significant reduction in angular reconstruction errors. For track-like events, the mean $\theta$ error decreased from $\sim 9.7^\circ$ (standard $\chi^2$-fit) to $\sim 3.7^\circ$ for the best 50\% quality parameters. The method also provides, for the first time in ANTARES, an azimuthal estimate for single-line events, with a mean error of $\sim 29.2^\circ$ for the best 50\% events according to the predicted uncertainty in the direction. The algorithm also improved distance and vertex reconstruction, enabling better constraints on the geometry of the interaction with respect to the detector; and enhanced energy reconstruction, particularly for shower-like events, where transfer learning allowed a reduction of the energy error compared to baseline models. The explicit estimation of uncertainties in every reconstructed property makes it possible to select subsets of events with robust predictions. Last but not least, a track-vs-shower classifier is presented with an accuracy of $\sim 80\%$, demonstrating the ability of transfer learning to leverage specialized feature extractors across tasks. When comparing data and MC simulations, $N$-fit demonstrates a good agreement in the tracks branch, cleaning the background noise and atmospheric muons of the up-going sample when quality cutoffs are applied.
+
+All together, these results show that machine learning can substantially extend the physics reach of ANTARES by unlocking information from previously underutilized event classes. Beyond ANTARES, the methodology and architecture of N-fit may be transferable to current and future neutrino telescopes, such as KM3NeT.
+
+The third part of this thesis focused on a physics application: the search for dark matter signals from the Sun. Building on the methodological advances, an unbinned maximum likelihood analysis was performed using the full ANTARES dataset. The analysis included the generation of probability density functions, pseudo-experiments, and sensitivity studies across a wide range of WIMP masses. No significant excess of neutrino events from the direction of the Sun was observed. Thus, upper limits were placed on the neutrino flux from WIMP self-annihilation in the Sun, for different annihilation channels and WIMP masses ranging from a few GeV to a few TeV. These limits translate into constraints on the spin-dependent and spin-independent WIMP-nucleon scattering cross section that are complementary to, and at some points competitive with, those obtained from direct detection experiments.
+
+\phantomsection
+\section*{Discussion}
+\addcontentsline{toc}{section}{Discussion}
+
+The developments presented in this thesis illustrate the synergy between new data analysis techniques and fundamental physics goals. On the methodological side, the implementation of deep learning in $N$-fit demonstrates that artificial intelligence can provide not only incremental but qualitative improvements in reconstruction, opening analysis channels that were previously inaccessible. On the physics side, the dark matter search conducted with ANTARES data contributes to the global effort of constraining the parameter space of WIMPs, probing scenarios that are difficult to test with laboratory-based experiments.
+
+A direct comparison with other experiments highlights the complementarity of the results. In the region of high WIMP masses ($\gtrsim 1$ TeV), ANTARES constraints on the spin-dependent WIMP-nucleon scattering cross section are comparable to those from IceCube, benefitting from the different geographical location and analysis strategies. %At lower WIMP masses (tens to hundreds of GeV), ANTARES results are competitive with those of Super-Kamiokande, despite its smaller instrumented volume, thanks to optimized reconstruction and background suppression.
+When contrasted with direct detection experiments such as PICO, LUX-ZEPLIN, or XENONnT, the ANTARES limits are weaker in the spin-independent channel, but provide unique sensitivity to the spin-dependent channel where neutrino telescopes probe parameter space that is otherwise inaccessible. This underlines the complementarity of direct, indirect, and collider searches: only by combining them can the full range of possible dark matter scenarios be tested.
+
+One important lesson emerging from this work is the role of uncertainty estimation. Both in the reconstruction tasks and in the physics analyses, the ability to assign reliable confidence measures to predictions is crucial for building robust likelihood functions and for maximizing sensitivity. This aspect is expected to become even more relevant in the era of larger detectors and more complex datasets.
+
+\phantomsection
+\section*{Future Prospects}
+\addcontentsline{toc}{section}{Future Prospects}
+
+Looking ahead, several avenues for further research arise naturally from this work.Future versions of N-fit could explore more advanced neural architectures, such as attention mechanisms or graph neural networks, which may better capture the sparse and relational structure of neutrino telescope data. Joint training across multiple tasks (direction, energy, classification) could further enhance performance. Furthermore, the experience gained with $N$-fit on ANTARES data is directly applicable to KM3NeT, whose larger volume and denser instrumentation will benefit from advanced machine learning reconstruction. In particular, the ability to reconstruct events with improved accuracy is central for oscillation studies in ORCA and point-source searches in ARCA.
+
+On the dark matter side, the limits obtained can be extended by combining results from ANTARES with other telescopes in joint analyses. Moreover, $N$-fit can be exploited in other contexts, such as neutrino physics measurements or transient source searches, where the inclusion of single-line events can significantly boost statistics.
+
+\phantomsection
+\section*{Concluding Remarks}
+\addcontentsline{toc}{section}{Concluding Remarks}
+
+In conclusion, this thesis has shown how innovative reconstruction methods based on deep learning can open new possibilities in neutrino astronomy and physics, and how these tools can be harnessed to address one of the most pressing questions in physics: the nature of dark matter. The methods and results presented here provide a foundation for future discoveries, particularly with the new generation of neutrino telescopes, and exemplify the fruitful intersection of artificial intelligence and fundamental science.

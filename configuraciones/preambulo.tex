@@ -1,0 +1,336 @@
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Configuración general
+
+% For PDF/A documents, conflict with hyperref package not solved
+%\usepackage[a-1b]{pdfx}
+
+% To use "sen" as "sin" (sinus) for spanish/valencian maths
+\newcommand{\sen}{\on{sen}}
+\usepackage{csquotes}
+% Quotes for valencian/catalen not defined, set to same as spanish
+%\DeclareQuoteAlias{spanish}{catalan}
+
+% Some general packages 
+\usepackage{array,booktabs}
+\usepackage{tabularx,longtable,multicol}
+\usepackage{amssymb}
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Custom commands and packages JGM
+
+% To use boldmath in headers
+\usepackage{bm} 
+
+% Change length between lines in math mode
+\setlength{\jot}{12pt}
+
+% Make the acronym list
+\usepackage[acronym,shortcuts]{glossaries}
+\input{./chapters/acronyms}
+\makeglossaries
+% Make the acronym list print as a chapter-level heading
+\setglossarysection{chapter}
+% Bold acronym names, keep descriptions normal
+\newglossarystyle{longbold}{%
+  \setglossarystyle{long}% base on the standard 'long' style
+  \renewcommand*{\glsnamefont}[1]{\textbf{##1}}% make the entry name bold
+}
+
+% Para incluir la portada como PDF (y otros PDFs si fuera necesario)
+\usepackage{pdfpages}
+
+% Para usar multirow in tables
+\usepackage{multirow, makecell}
+
+% Para poner celdas de colores en las tablas
+\usepackage[table]{xcolor}  % Permite usar \cellcolor en tablas
+\usepackage{colortbl}       % Opcional, pero mejora compatibilidad con tablas
+
+% Comandos para notas y ocultar bloques de texto
+\newcommand{\hide}[1]{}
+
+% Para poner notas en el texto
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
+\newif\ifdraft
+
+%\drafttrue   % pon \draftfalse para ocultarlos en la versión final
+\draftfalse
+
+\ifdraft
+  \newcommand{\juan}[1]{\todo[color=blue!20,inline]{JGM: #1}}
+  \newcommand{\salva}[1]{\todo[color=green!20,inline]{SA: #1}}
+  \newcommand{\miquel}[1]{\todo[color=orange!25,inline]{MA: #1}}
+\else
+  \newcommand{\juan}[1]{}
+  \newcommand{\salva}[1]{}
+  \newcommand{\miquel}[1]{}
+\fi
+
+% Para usar la fuente \mathds
+\usepackage{dsfont}
+
+% Para rellenar trozos sin escribir
+\usepackage{lipsum}
+
+% Para usar lineas punteadas verticales en las tablas (|c:c|)
+\usepackage{arydshln}
+
+% Para usar subfiguras
+\usepackage[labelfont=bf]{subcaption}
+\renewcommand\thesubfigure{\Alph{subfigure}}
+
+% Traducción del título del abstract
+\addto\captionsenglish{\renewcommand{\abstractname}{Abstract}}
+\addto\captionsspanish{\renewcommand{\abstractname}{Resumen}}
+\addto\captionscatalan{\renewcommand{\abstractname}{Resum}}
+
+% Entorno abstract personalizado tipo recomendado (como un capitulo)
+\newenvironment{myabstract}{
+  \chapter*{\abstractname}
+  \addcontentsline{toc}{chapter}{\abstractname}
+}{}
+
+% Entorno abstract personalizado tipo report
+\newenvironment{abstract}{
+  %\cleardoublepage
+  \clearpage
+  \null\vfill
+  \begin{center}%
+    \bfseries \abstractname
+  \end{center}}%
+ {\vfill\null}
+
+% Change subsubsections to not be in italic shape and being bold
+\titleformat{\subsubsection}
+  [hang]
+  {\vspace{2ex}\raggedright\tolerance=10000\hyphenpenalty=10000}
+  {\normalsize\bfseries\thesubsubsection}
+  {1em}
+  {\normalsize\bfseries}
+  [\vspace{-0.75ex}]
+
+% Change subsections to not be in italic shape
+\titleformat{\subsection}
+    [hang]
+    {\vspace{1.5ex}\raggedright\tolerance=10000\hyphenpenalty=10000}
+    {\fontsize{10.5}{12.5}\bfseries\thesubsection}
+    {1em}
+    {\fontsize{10.5}{12.5}\bfseries}
+    [\vspace{-1ex}]
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Bibliografía (modificar al gusto)
+
+\usepackage[
+	url      = false,
+    eprint   = false,
+    isbn     = false,
+	style    = ieee, %numeric, %apa %authoryear
+    citestyle = numeric-comp,
+	hyperref = true,
+	backref  = true,
+	backend  = biber,
+    sorting  = none,
+    maxnames = 2,
+    minnames = 2,
+    giveninits = true,
+	]{biblatex}
+
+% To avoid reading the abstract in biber, avoid erros due to Unicode
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      % Remove abstract and languages to avoid bad printing
+      \step[fieldset=abstract, null]
+      \step[fieldset=language, null]
+    }
+    \map[overwrite=true]{
+      % Only for Articles
+      \pertype{Article}
+      % Continue only if 'collaboration' exists (final):
+      \step[fieldsource=collaboration, fieldtarget=author, final]
+    }
+  }
+}
+
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Documento electrónico
+
+\usepackage{imakeidx}
+\makeindex
+
+
+% Print boolean to change link colors. Set to true for printing, so links are black
+\newif\ifprint
+\printfalse
+%\printtrue
+
+% Define colors for links, internal references, etc
+\colorlet{colorEnlace}{black}
+
+\ifprint
+    \colorlet{colorRef}{black}
+    \colorlet{colorURL}{black}
+\else
+    \colorlet{colorRef}{blue}
+    \colorlet{colorURL}{cyan}
+\fi
+
+% To allow URL breaks in many characters (just needed if overfull \hbox happens due to URLs)
+% NOT TESTED
+%\usepackage{xurl}
+
+\usepackage[
+	colorlinks,
+    linkcolor=colorRef,
+	citecolor=colorRef,
+	urlcolor=colorURL,
+    bookmarksnumbered,
+	breaklinks,
+	]{hyperref}
+
+% Para usar \bookmarksetup % Debe estar siempre detras de hyperref
+\usepackage{bookmark} % <- justo después de hyperref
+
+
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Below this point, I have not used anything of this.
+% It was all declared by "editorial UPV", so it should work fine
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Expresión de unidades según el Sistema Internacional, monedas
+
+\usepackage{eurosym}
+\usepackage{siunitx}
+
+\ifenglish
+	\sisetup{output-decimal-marker={.}}
+\else
+	\sisetup{output-decimal-marker={,}}
+\fi
+
+\DeclareSIUnit[number-unit-product = {\;}] \EURO{\geneuro}
+
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Por compatibilidad con versiones anteriores de la plantilla
+	
+\newcommand{\incluyeGrafico}[2][]{\includegraphics[#1]{#2}} % Por compatibilidad
+
+% ---------------------------------------------------------------------
+
+\newcommand{\ingles}[1]{\textit{#1}}
+
+% ------------------------------------------------------------------------
+
+\usepackage{xspace}
+
+\newcommand{\angles}[1]{\textit{#1}\/}
+\newcommand{\miUrl}[1]{{\small%
+	%\texttt%
+	{\underline{#1}}}}
+
+\newcommand{\matlabr}{{\sc Matlab}$^\circledR$\xspace}
+\newcommand{\simulinkr}{\textit{Simulink}$^\circledR$\xspace}
+\newcommand{\matlab}{{\textsc{Matlab}}\xspace}
+\newcommand{\simulink}{\textit{Simulink}\xspace}
+
+\newcommand{\scr}{\textit{script\/}\xspace}
+\newcommand{\scrs}{\textit{scripts\/}\xspace}
+
+% ------------------------------------------------------------------------
+
+\definecolor{griset}{rgb}{.925, .925, .925}
+
+
+\newsavebox{\mybox}
+\newenvironment{parrafoDestacado}
+    {%
+    \fboxsep = 2ex
+    \fboxrule = .4pt
+    \begin{lrbox}{\mybox}%
+    \begin{minipage}{.85\textwidth-2\fboxsep}\itshape\parskip=2ex
+    }
+    {%
+    \end{minipage}
+    \end{lrbox}%
+    \begin{flushright}
+        \colorbox{griset}{\usebox{\mybox}}%
+        %\fcolorbox{black}{griset}{\usebox{\mybox}}%
+    \end{flushright}
+    }
+
+
+% ------------------------------------------------------------------------
+% Resumen del capítulo
+
+
+\newsavebox{\myboxb}
+\newenvironment{Resumen}
+    {%
+    \vspace*{-2.0cm}
+    \fboxsep = 0pt
+    \fboxrule = 0pt
+    \begin{lrbox}{\myboxb}%
+    \begin{minipage}{.85\textwidth}\itshape\parskip=2ex\parindent=2em
+    }
+    {%
+    \end{minipage}
+    \end{lrbox}%
+    \begin{flushright}
+        \usebox{\myboxb}%
+    \end{flushright}
+    \vspace{0.5cm}
+    }
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Símbolos matemáticos
+
+\newcommand{\on}{\operatorname}
+
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
+% Teoremas y ejemplos
+
+\ifcastellano
+	\newtheorem{teorema}{\upshape\bfseries Teorema}[section]
+	\newtheorem{lema}{\mdseries\scshape Lema}[section]
+	\newtheorem{proposicion}{\upshape\bfseries Proposición}[section]
+	\newtheorem{ejemplo}{\bfseries\scshape Ejemplo}[section]
+\fi
+
+\ifvalencia % Es mantenen els mateixos noms per compatibilitat, però l'autor els pot personalitzar
+	\newtheorem{teorema}{\upshape\bfseries Teorema}[section]
+	\newtheorem{lema}{\mdseries\scshape Lema}[section]
+	\newtheorem{proposicion}{\upshape\bfseries Proposició}[section]
+	\newtheorem{ejemplo}{\bfseries\scshape Exemple}[section]
+\fi
+
+\ifenglish
+	\newtheorem{teorema}{\upshape\bfseries Theorem}[section]
+	\newtheorem{lema}{\mdseries\scshape Lemma}[section]
+	\newtheorem{proposicion}{\upshape\bfseries Proposition}[section]
+	\newtheorem{ejemplo}{\bfseries\scshape Example}[section]
+\fi
